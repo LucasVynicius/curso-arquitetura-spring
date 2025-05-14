@@ -1,23 +1,24 @@
 package br.com.cursoudemy.arquiteturaspring.montadora.api;
 
-import br.com.cursoudemy.arquiteturaspring.montadora.Carro;
-import br.com.cursoudemy.arquiteturaspring.montadora.CarroStatus;
-import br.com.cursoudemy.arquiteturaspring.montadora.Chave;
-import br.com.cursoudemy.arquiteturaspring.montadora.Motor;
+import br.com.cursoudemy.arquiteturaspring.montadora.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/carros")
 public class TesteFabricaController {
 
     @Autowired
+    @Qualifier("motorEletrico")
     private Motor motor;
 
     @PostMapping
     public CarroStatus ligarCarro(@RequestBody Chave chave){
-        var carro = new Carro(motor);
+        var carro = new HondaHRV(motor);
         return carro.darIgnicao(chave);
     }
 }
